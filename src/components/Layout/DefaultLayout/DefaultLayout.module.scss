@@ -1,0 +1,16 @@
+@import '../../GlobalStyles/vars';
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .container {
+        width: $defaut-layout-width;
+        display: flex;
+
+        .content {
+            flex: 1;
+        }
+    }
+}
