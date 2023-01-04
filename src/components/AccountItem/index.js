@@ -6,6 +6,7 @@ import Image from '~/components/Image';
 import styles from './AccountItem.module.scss';
 
 const cx = classNames.bind(styles);
+
 function AccountItem({ data }) {
     return (
         <Link to={`/@${data.nickname}`} className={cx('wrapper')}>
