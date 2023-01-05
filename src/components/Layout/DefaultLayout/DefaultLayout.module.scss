@@ -9,6 +9,7 @@
         padding: $defaut-layout-horizontal-spacer;
         width: $defaut-layout-width;
         display: flex;
+        margin-top: $defaut-layout-header-height;
 
         .content {
             flex: 1;
