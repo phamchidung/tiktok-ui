@@ -33,6 +33,7 @@ $search-button-width: 52px;
         height: 100%;
         flex: 1;
         caret-color: $primary;
+        font-family: $font-family;
     }
 
     input:not(:placeholder-shown) ~ .search-btn {
