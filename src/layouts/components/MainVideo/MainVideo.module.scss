@@ -1,0 +1,77 @@
+.wrapper {
+    .video-info {
+        display: flex;
+        width: 510px;
+        gap: 12px;
+        align-items: center;
+
+        .tippy-wrapper {
+            width: fit-content;
+        }
+
+        .avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .text-wrapper {
+            .name-info {
+                display: flex;
+                gap: 10px;
+                align-items: center;
+                cursor: pointer;
+                border-bottom: 2px solid transparent;
+
+                .nickname {
+                    font-size: 1.8rem;
+                    height: 22px;
+
+                    strong {
+                        margin-right: 4px;
+                    }
+
+                    .check {
+                        font-size: 1.4rem;
+                        color: #20d5ec;
+                    }
+                }
+
+                .name {
+                    font-size: 1.4rem;
+                }
+
+                &:hover {
+                    .nickname {
+                        border-bottom: 2px solid #161823;
+                    }
+                }
+            }
+        }
+    }
+
+    .music-wrapper {
+        margin-left: 68px;
+        display: flex;
+        gap: 8px;
+        font-size: 1.6rem;
+        align-items: center;
+        cursor: pointer;
+        margin-top: 8px;
+
+        .music-icon {
+            font-size: 1.4rem;
+        }
+
+        .music-name {
+            font-weight: 600;
+            line-height: 22px;
+            height: 18px;
+
+            &:hover {
+                border-bottom: 1px solid #161823;
+            }
+        }
+    }
+}
