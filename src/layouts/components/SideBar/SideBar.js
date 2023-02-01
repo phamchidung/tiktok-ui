@@ -11,6 +11,8 @@ import {
     LiveActiveIcon,
 } from '~/components/Icons';
 import SuggestedAccounts from '../SuggestedAccounts';
+import Discover from '../Discover';
+import Footer from '../Footer';
 
 const cx = classNames.bind(styles);
 
@@ -30,6 +32,21 @@ function SideBar() {
 
             <SuggestedAccounts label="Suggested accounts" />
             <SuggestedAccounts label="Following accounts" />
+            <Discover
+                texts={[
+                    'suthatla',
+                    'mackedoi',
+                    'sansangthaydoi',
+                    'Yêu Đơn Phương Là Gì (MEE Remix) - Mee Media & h0n & BHMedia',
+                    'Về Nghe Mẹ Ru - NSND Bach Tuyet & Hứa Kim Tuyền & 14 Casper & Hoàng Dũng',
+                    'Thiên Thần Tình Yêu - RICKY STAR',
+                    '7749hieuung',
+                    'genzlife',
+                    'Tình Đã Đầy Một Tim - Huyền Tâm Môn',
+                    'Thằng Hầu (Thái Hoàng Remix) [Short Version] - Dunghoangpham',
+                ]}
+            />
+            <Footer />
         </aside>
     );
 }

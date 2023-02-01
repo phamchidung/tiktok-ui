@@ -9,6 +9,7 @@
     border-radius: 4px;
     transition: background-color ease-in-out 200ms;
     color: $text-color;
+    width: calc(100% + #{$sidebar-padding-right});
 
     &:hover {
         background-color: rgba(22, 24, 35, 0.03);

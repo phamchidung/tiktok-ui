@@ -9,11 +9,11 @@
         padding: $defaut-layout-horizontal-spacer;
         width: $defaut-layout-width;
         max-width: 100%;
-        display: flex;
         margin-top: $defaut-layout-header-height;
 
         .content {
             flex: 1;
+            margin-left: calc(356px + 80px);
         }
     }
 }

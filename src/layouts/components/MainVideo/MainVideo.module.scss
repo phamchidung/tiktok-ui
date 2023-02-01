@@ -1,4 +1,9 @@
+@import '../../../components/GlobalStyles/vars';
+
 .wrapper {
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(22, 24, 35, 0.2);
+
     .video-info {
         display: flex;
         width: 510px;
@@ -7,13 +12,18 @@
 
         .tippy-wrapper {
             width: fit-content;
+            cursor: pointer;
+        }
+
+        .avatar-wrapper {
+            height: 56px;
+            width: fit-content;
         }
 
         .avatar {
             width: 56px;
             height: 56px;
             border-radius: 50%;
-            cursor: pointer;
         }
 
         .text-wrapper {
@@ -52,13 +62,12 @@
     }
 
     .music-wrapper {
-        margin-left: 68px;
         display: flex;
         gap: 8px;
         font-size: 1.6rem;
         align-items: center;
         cursor: pointer;
-        margin-top: 8px;
+        margin: 8px 0 12px 68px;
 
         .music-icon {
             font-size: 1.4rem;
@@ -74,4 +83,73 @@
             }
         }
     }
+
+    .video-content {
+        padding-left: 68px;
+        display: flex;
+        align-items: flex-end;
+        gap: 20px;
+        position: relative;
+
+        .video {
+            width: 290px;
+            height: 516px;
+            border-radius: 8px;
+        }
+
+        .action-item {
+            .action {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 4px;
+                cursor: pointer;
+            }
+
+            .action + .action {
+                margin-top: 6px;
+            }
+
+            .icon-circle {
+                width: 48px;
+                height: 48px;
+                background-color: #f1f1f2;
+                border-radius: 50%;
+                position: relative;
+
+                .icon {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                }
+            }
+
+            .count {
+                color: rgba(22, 24, 35, 0.75);
+                font-size: 1.2rem;
+                line-height: 1.7rem;
+            }
+        }
+
+        .sound-control {
+            position: absolute;
+            bottom: 34px;
+            left: 312px;
+            height: 24px;
+            color: $white;
+        }
+
+        .play-control {
+            color: $white;
+            position: absolute;
+            bottom: 34px;
+            left: 88px;
+            height: 20px;
+        }
+    }
+}
+
+.wrapper + .wrapper {
+    margin-top: 20px;
 }

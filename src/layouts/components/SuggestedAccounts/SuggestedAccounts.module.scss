@@ -1,5 +1,7 @@
+@import '../../../components/GlobalStyles/vars';
+
 .wrapper {
-    border-top: 1px solid #e3e3e4;
+    border-top: 1px solid $border-primary;
 
     .label {
         font-size: 1.4rem;
@@ -11,6 +13,7 @@
         display: flex;
         padding: 8px;
         cursor: pointer;
+        width: calc(100% + #{$sidebar-padding-right});
 
         .avatar {
             width: 32px;
@@ -40,6 +43,10 @@
                 font-size: 1.2rem;
                 color: #161823bf;
             }
+        }
+
+        &:hover {
+            background-color: rgba(22, 24, 35, 0.03);
         }
     }
 

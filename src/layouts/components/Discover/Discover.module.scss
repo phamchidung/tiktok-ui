@@ -1,0 +1,13 @@
+@import '../../../components/GlobalStyles/vars';
+
+.wrapper {
+    border-top: 1px solid $border-primary;
+    border-bottom: 1px solid $border-primary;
+    padding-left: 8px;
+
+    .label {
+        font-size: 1.4rem;
+        padding: 8px 8px 12px 0;
+        font-weight: 600;
+    }
+}
