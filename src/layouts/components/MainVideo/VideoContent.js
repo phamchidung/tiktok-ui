@@ -2,32 +2,28 @@ import classNames from 'classnames/bind';
 import { CommentIcon, HeartIcon, MuteIcon, PauseIcon, PlayIcon, ShareIcon, SoundIcon } from '~/components/Icons';
 import styles from './MainVideo.module.scss';
 import PropTypes from 'prop-types';
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
+import { useVideoPlayer } from '~/hooks';
 
 const cx = classNames.bind(styles);
 
-// Pause other video when click on 1 video
-function VideoContent({ data }) {
-    const [isMute, setMute] = useState(true);
-    const [isPlay, setPlay] = useState(true);
-    const video = useRef();
+function VideoContent({ data, handleChangePlayingVideo, currentPlayingVideoId }) {
+    const videoElement = useRef();
+    const { playerState, playVideo, pauseVideo, toggleMuteVideo, togglePlayVideo } = useVideoPlayer(videoElement);
 
     useEffect(() => {
-        video.current.muted = isMute;
-    }, [isMute]);
-
-    useEffect(() => {
-        if (isPlay) {
-            video.current.play();
+        if (data.video_id !== currentPlayingVideoId) {
+            pauseVideo(false);
             return;
         }
+        playVideo(true);
 
-        video.current.pause();
-    }, [isPlay]);
+        // eslint-disable-next-line
+    }, [currentPlayingVideoId, data.video_id]);
 
     return (
         <div className={cx('video-content')}>
-            <video ref={video} autoPlay loop muted className={cx('video')}>
+            <video ref={videoElement} autoPlay loop muted className={cx('video')}>
                 <source src={data.video_url} type="video/mp4" />
             </video>
 
@@ -52,12 +48,18 @@ function VideoContent({ data }) {
                 </div>
             </div>
 
-            <div className={cx('play-control')} onClick={() => setPlay(!isPlay)}>
-                {isPlay ? <PauseIcon /> : <PlayIcon />}
+            <div
+                className={cx('play-control')}
+                onClick={() => {
+                    togglePlayVideo();
+                    handleChangePlayingVideo(data.video_id);
+                }}
+            >
+                {playerState.isPlaying ? <PauseIcon /> : <PlayIcon />}
             </div>
 
-            <div className={cx('sound-control')} onClick={() => setMute(!isMute)}>
-                {isMute ? <MuteIcon /> : <SoundIcon />}
+            <div className={cx('sound-control')} onClick={toggleMuteVideo}>
+                {playerState.isMuted ? <MuteIcon /> : <SoundIcon />}
             </div>
         </div>
     );
@@ -65,6 +67,8 @@ function VideoContent({ data }) {
 
 VideoContent.propTypes = {
     data: PropTypes.object.isRequired,
+    handleChangePlayingVideo: PropTypes.func.isRequired,
+    currentPlayingVideoId: PropTypes.number.isRequired,
 };
 
 export default VideoContent;
