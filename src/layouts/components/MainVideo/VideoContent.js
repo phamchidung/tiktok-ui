@@ -2,14 +2,30 @@ import classNames from 'classnames/bind';
 import { CommentIcon, HeartIcon, MuteIcon, PauseIcon, PlayIcon, ShareIcon, SoundIcon } from '~/components/Icons';
 import styles from './MainVideo.module.scss';
 import PropTypes from 'prop-types';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { useVideoPlayer } from '~/hooks';
 
 const cx = classNames.bind(styles);
 
 function VideoContent({ data, handleChangePlayingVideo, currentPlayingVideoId }) {
+    const soundControlElement = useRef();
+    const [isSoundControlVisibility, setSoundControlVisibility] = useState(true);
+
     const videoElement = useRef();
     const { playerState, playVideo, pauseVideo, toggleMuteVideo, togglePlayVideo } = useVideoPlayer(videoElement);
+
+    const handleMouseEnterVideo = () => setSoundControlVisibility(true);
+    const handleMouseLeaveVideo = () => setSoundControlVisibility(playerState.isMuted);
+
+    useEffect(() => {
+        if (soundControlElement.current) {
+            if (isSoundControlVisibility) {
+                soundControlElement.current.style.opacity = 1;
+                return;
+            }
+            soundControlElement.current.style.opacity = 0;
+        }
+    }, [isSoundControlVisibility]);
 
     useEffect(() => {
         if (data.video_id !== currentPlayingVideoId) {
@@ -23,7 +39,15 @@ function VideoContent({ data, handleChangePlayingVideo, currentPlayingVideoId })
 
     return (
         <div className={cx('video-content')}>
-            <video ref={videoElement} autoPlay loop muted className={cx('video')}>
+            <video
+                onMouseEnter={handleMouseEnterVideo}
+                onMouseLeave={handleMouseLeaveVideo}
+                ref={videoElement}
+                autoPlay
+                loop
+                muted
+                className={cx('video')}
+            >
                 <source src={data.video_url} type="video/mp4" />
             </video>
 
@@ -48,18 +72,20 @@ function VideoContent({ data, handleChangePlayingVideo, currentPlayingVideoId })
                 </div>
             </div>
 
-            <div
-                className={cx('play-control')}
-                onClick={() => {
-                    togglePlayVideo();
-                    handleChangePlayingVideo(data.video_id);
-                }}
-            >
-                {playerState.isPlaying ? <PauseIcon /> : <PlayIcon />}
-            </div>
+            <div onMouseEnter={handleMouseEnterVideo} className={cx('video-controls')}>
+                <div
+                    className={cx('play-control')}
+                    onClick={() => {
+                        togglePlayVideo();
+                        handleChangePlayingVideo(data.video_id);
+                    }}
+                >
+                    {playerState.isPlaying ? <PauseIcon /> : <PlayIcon />}
+                </div>
 
-            <div className={cx('sound-control')} onClick={toggleMuteVideo}>
-                {playerState.isMuted ? <MuteIcon /> : <SoundIcon />}
+                <div ref={soundControlElement} className={cx('sound-control')} onClick={toggleMuteVideo}>
+                    {playerState.isMuted ? <MuteIcon /> : <SoundIcon />}
+                </div>
             </div>
         </div>
     );

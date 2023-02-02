@@ -4,6 +4,14 @@
     padding-bottom: 20px;
     border-bottom: 1px solid rgba(22, 24, 35, 0.2);
 
+    @mixin video-controls-opacity-transition($time) {
+        -webkit-transition: opacity $time ease-in-out;
+        -moz-transition: opacity $time ease-in-out;
+        -ms-transition: opacity $time ease-in-out;
+        -o-transition: opacity $time ease-in-out;
+        transition: opacity $time ease-in-out;
+    }
+
     .video-info {
         display: flex;
         width: 510px;
@@ -95,6 +103,13 @@
             width: 290px;
             height: 516px;
             border-radius: 8px;
+
+            &:hover ~ .video-controls {
+                .sound-control,
+                .play-control {
+                    opacity: 1;
+                }
+            }
         }
 
         .action-item {
@@ -132,20 +147,35 @@
             }
         }
 
-        .sound-control {
+        .video-controls {
             position: absolute;
-            bottom: 34px;
-            left: 312px;
-            height: 24px;
-            color: $white;
-        }
-
-        .play-control {
-            color: $white;
-            position: absolute;
+            display: flex;
             bottom: 34px;
             left: 88px;
-            height: 20px;
+            gap: 206px;
+
+            &:hover {
+                .sound-control,
+                .play-control {
+                    opacity: 1;
+                }
+            }
+
+            .sound-control {
+                height: 24px;
+                color: $white;
+                opacity: 0;
+                cursor: pointer;
+                @include video-controls-opacity-transition(0.2s);
+            }
+
+            .play-control {
+                color: $white;
+                height: 20px;
+                opacity: 0;
+                cursor: pointer;
+                @include video-controls-opacity-transition(0.2s);
+            }
         }
     }
 }
