@@ -31,7 +31,7 @@ function SideBar() {
             </Menu>
 
             <SuggestedAccounts label="Suggested accounts" />
-            <SuggestedAccounts label="Following accounts" />
+            <SuggestedAccounts label="Following accounts" disableTippy={true} />
             <Discover
                 texts={[
                     'suthatla',

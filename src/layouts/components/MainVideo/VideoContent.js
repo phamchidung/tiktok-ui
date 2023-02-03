@@ -4,6 +4,7 @@ import styles from './MainVideo.module.scss';
 import PropTypes from 'prop-types';
 import { useRef, useEffect, useState } from 'react';
 import { useVideoPlayer } from '~/hooks';
+import { InView } from 'react-intersection-observer';
 
 const cx = classNames.bind(styles);
 
@@ -17,6 +18,7 @@ function VideoContent({ data, handleChangePlayingVideo, currentPlayingVideoId })
     const handleMouseEnterVideo = () => setSoundControlVisibility(true);
     const handleMouseLeaveVideo = () => setSoundControlVisibility(playerState.isMuted);
 
+    // control sound control visibility
     useEffect(() => {
         if (soundControlElement.current) {
             if (isSoundControlVisibility) {
@@ -27,6 +29,7 @@ function VideoContent({ data, handleChangePlayingVideo, currentPlayingVideoId })
         }
     }, [isSoundControlVisibility]);
 
+    // pause this video if it's not current playing video, otherwise play it
     useEffect(() => {
         if (data.video_id !== currentPlayingVideoId) {
             pauseVideo(false);
@@ -38,56 +41,65 @@ function VideoContent({ data, handleChangePlayingVideo, currentPlayingVideoId })
     }, [currentPlayingVideoId, data.video_id]);
 
     return (
-        <div className={cx('video-content')}>
-            <video
-                onMouseEnter={handleMouseEnterVideo}
-                onMouseLeave={handleMouseLeaveVideo}
-                ref={videoElement}
-                autoPlay
-                loop
-                muted
-                className={cx('video')}
-            >
-                <source src={data.video_url} type="video/mp4" />
-            </video>
-
-            <div className={cx('action-item')}>
-                <div className={cx('action', 'like')}>
-                    <div className={cx('icon-circle')}>
-                        <HeartIcon className={cx('icon')} />
-                    </div>
-                    <strong className={cx('count', 'like-count')}>{data.like_count}</strong>
-                </div>
-                <div className={cx('action', 'comment')}>
-                    <div className={cx('icon-circle')}>
-                        <CommentIcon className={cx('icon')} />
-                    </div>
-                    <strong className={cx('count', 'comment-count')}>{data.comment_count}</strong>
-                </div>
-                <div className={cx('action', 'share')}>
-                    <div className={cx('icon-circle')}>
-                        <ShareIcon className={cx('icon')} />
-                    </div>
-                    <strong className={cx('count', 'share-count')}>{data.share_count}</strong>
-                </div>
-            </div>
-
-            <div onMouseEnter={handleMouseEnterVideo} className={cx('video-controls')}>
-                <div
-                    className={cx('play-control')}
-                    onClick={() => {
-                        togglePlayVideo();
-                        handleChangePlayingVideo(data.video_id);
-                    }}
+        <InView
+            threshold={0.4}
+            onChange={(inView) => {
+                if (inView) {
+                    handleChangePlayingVideo(data.video_id);
+                }
+            }}
+        >
+            <div className={cx('video-content')}>
+                <video
+                    onMouseEnter={handleMouseEnterVideo}
+                    onMouseLeave={handleMouseLeaveVideo}
+                    ref={videoElement}
+                    autoPlay
+                    loop
+                    muted
+                    className={cx('video')}
                 >
-                    {playerState.isPlaying ? <PauseIcon /> : <PlayIcon />}
+                    <source src={data.video_url} type="video/mp4" />
+                </video>
+
+                <div className={cx('action-item')}>
+                    <div className={cx('action', 'like')}>
+                        <div className={cx('icon-circle')}>
+                            <HeartIcon className={cx('icon')} />
+                        </div>
+                        <strong className={cx('count', 'like-count')}>{data.like_count}</strong>
+                    </div>
+                    <div className={cx('action', 'comment')}>
+                        <div className={cx('icon-circle')}>
+                            <CommentIcon className={cx('icon')} />
+                        </div>
+                        <strong className={cx('count', 'comment-count')}>{data.comment_count}</strong>
+                    </div>
+                    <div className={cx('action', 'share')}>
+                        <div className={cx('icon-circle')}>
+                            <ShareIcon className={cx('icon')} />
+                        </div>
+                        <strong className={cx('count', 'share-count')}>{data.share_count}</strong>
+                    </div>
                 </div>
 
-                <div ref={soundControlElement} className={cx('sound-control')} onClick={toggleMuteVideo}>
-                    {playerState.isMuted ? <MuteIcon /> : <SoundIcon />}
+                <div onMouseEnter={handleMouseEnterVideo} className={cx('video-controls')}>
+                    <div
+                        className={cx('play-control')}
+                        onClick={() => {
+                            togglePlayVideo();
+                            handleChangePlayingVideo(data.video_id);
+                        }}
+                    >
+                        {playerState.isPlaying ? <PauseIcon /> : <PlayIcon />}
+                    </div>
+
+                    <div ref={soundControlElement} className={cx('sound-control')} onClick={toggleMuteVideo}>
+                        {playerState.isMuted ? <MuteIcon /> : <SoundIcon />}
+                    </div>
                 </div>
             </div>
-        </div>
+        </InView>
     );
 }
 

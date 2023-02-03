@@ -5,14 +5,14 @@ import AccountItem from './AccountItem';
 
 const cx = classNames.bind(styles);
 
-function SuggestedAccounts({ label }) {
+function SuggestedAccounts({ label, disableTippy }) {
     return (
         <div className={cx('wrapper')}>
             <p className={cx('label')}>{label}</p>
 
-            <AccountItem />
-            <AccountItem />
-            <AccountItem />
+            <AccountItem disableTippy={disableTippy} />
+            <AccountItem disableTippy={disableTippy} />
+            <AccountItem disableTippy={disableTippy} />
 
             <p className={cx('more-btn')}>See all</p>
         </div>
@@ -21,6 +21,7 @@ function SuggestedAccounts({ label }) {
 
 SuggestedAccounts.propTypes = {
     label: PropTypes.string.isRequired,
+    disableTippy: PropTypes.bool,
 };
 
 export default SuggestedAccounts;

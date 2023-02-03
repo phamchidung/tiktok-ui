@@ -5,10 +5,11 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import Tippy from '@tippyjs/react/headless';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import AccountPreview from '~/components/AccountPreview';
+import PropTypes from 'prop-types';
 
 const cx = classNames.bind(styles);
 
-function AccountItem() {
+function AccountItem({ disableTippy = false }) {
     const renderPreview = (props) => {
         return (
             <div tabIndex="-1" {...props}>
@@ -21,7 +22,14 @@ function AccountItem() {
 
     return (
         <div>
-            <Tippy interactive delay={[800, 0]} render={renderPreview} placement="bottom" offset={[-20, 0]}>
+            <Tippy
+                disabled={disableTippy}
+                interactive
+                delay={[800, 0]}
+                render={renderPreview}
+                placement="bottom"
+                offset={[-20, 0]}
+            >
                 <div className={cx('account-item')}>
                     <img
                         className={cx('avatar')}
@@ -41,6 +49,6 @@ function AccountItem() {
     );
 }
 
-AccountItem.propTypes = {};
+AccountItem.propTypes = { disableTippy: PropTypes.bool };
 
 export default AccountItem;
