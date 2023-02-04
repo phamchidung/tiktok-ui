@@ -43,7 +43,7 @@ function VideoContent({ data, handleChangePlayingVideo, currentPlayingVideoId })
 
     return (
         <InView
-            threshold={0.4}
+            threshold={process.env.REACT_APP_VIDEO_THRESHOLD}
             onChange={(inView) => {
                 if (inView) {
                     handleChangePlayingVideo(data.video_id);
