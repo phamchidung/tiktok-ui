@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { useRef, useEffect, useState } from 'react';
 import { useVideoPlayer } from '~/hooks';
 import { InView } from 'react-intersection-observer';
+import ShareWrapper from '~/components/SharePreview';
 
 const cx = classNames.bind(styles);
 
@@ -75,12 +76,15 @@ function VideoContent({ data, handleChangePlayingVideo, currentPlayingVideoId })
                         </div>
                         <strong className={cx('count', 'comment-count')}>{data.comment_count}</strong>
                     </div>
-                    <div className={cx('action', 'share')}>
-                        <div className={cx('icon-circle')}>
-                            <ShareIcon className={cx('icon')} />
+
+                    <ShareWrapper>
+                        <div className={cx('action', 'share')}>
+                            <div className={cx('icon-circle')}>
+                                <ShareIcon className={cx('icon')} />
+                            </div>
+                            <strong className={cx('count', 'share-count')}>{data.share_count}</strong>
                         </div>
-                        <strong className={cx('count', 'share-count')}>{data.share_count}</strong>
-                    </div>
+                    </ShareWrapper>
                 </div>
 
                 <div onMouseEnter={handleMouseEnterVideo} className={cx('video-controls')}>

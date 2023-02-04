@@ -19,7 +19,11 @@ function AccountPreviewWrapper({ children, tippyOffset = { top: 0, left: 0 }, cl
     };
 
     return (
-        <div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} className={cx('tippy-wrapper', className)}>
+        <div
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
+            className={cx('account-preview-tippy-wrapper', className)}
+        >
             <Tippy
                 interactive
                 delay={[800, 0]}
