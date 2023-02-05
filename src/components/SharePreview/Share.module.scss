@@ -1,3 +1,5 @@
+@import '../GlobalStyles/vars';
+
 .share-tippy-wrapper {
     // Tooltip arrow custom style
     .tooltip[data-placement^='top'] .tippy-arrow {
@@ -38,12 +40,15 @@
 
     .popper-wrapper {
         padding-top: 0;
+        padding-right: 4px;
         cursor: pointer;
     }
 
     .share-preview {
-        padding-top: 8px;
-        width: 280px;
+        width: 276px;
+        padding: 8px 0;
+        max-height: 448px;
+        overflow-y: auto;
 
         .share-item {
             display: flex;
@@ -54,15 +59,25 @@
         }
 
         .share-down-icon {
-            width: 100%;
             padding: 0px 16px;
-            margin: 0 auto;
+            display: flex;
+            justify-content: center;
         }
 
         .bg-hover {
             &:hover {
                 background: rgba(22, 24, 35, 0.03);
             }
+        }
+
+        // Scrollbar CSS
+        &::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            border-radius: 3px;
+            background: rgba(0, 0, 0, 0.15);
         }
     }
 }
