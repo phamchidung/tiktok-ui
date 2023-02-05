@@ -23,6 +23,8 @@ import Image from '~/components/Image';
 import Search from '../Search';
 import { Link } from 'react-router-dom';
 import config from '~/config';
+import { useStore } from '~/hooks';
+import { actions } from '~/store';
 
 const cx = classNames.bind(styles);
 
@@ -59,6 +61,7 @@ const MENU_ITEMS = [
 
 function Header() {
     const currentUser = true;
+    const [, dispatch] = useStore();
 
     // Handle logic
     const handleMenuChange = (menuItem) => {
@@ -98,7 +101,14 @@ function Header() {
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
-                <Link to={config.routes.home} className={cx('logo-link')}>
+                <Link
+                    onClick={() => {
+                        dispatch(actions.setLoadingHome(true));
+                        setTimeout(() => dispatch(actions.setLoadingHome(false)), 1000);
+                    }}
+                    to={config.routes.home}
+                    className={cx('logo-link')}
+                >
                     <img src={images.logo} alt="Tiktok" />
                 </Link>
 
