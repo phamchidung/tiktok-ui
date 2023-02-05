@@ -13,8 +13,8 @@ function VideoContent({ data, handleChangePlayingVideo, currentPlayingVideoId })
     const soundControlElement = useRef();
     const [isSoundControlVisibility, setSoundControlVisibility] = useState(true);
 
-    const videoElement = useRef();
-    const { playerState, playVideo, pauseVideo, toggleMuteVideo, togglePlayVideo } = useVideoPlayer(videoElement);
+    const videoRef = useRef();
+    const { playerState, playVideo, pauseVideo, toggleMuteVideo, togglePlayVideo } = useVideoPlayer(videoRef);
 
     const handleMouseEnterVideo = () => setSoundControlVisibility(true);
     const handleMouseLeaveVideo = () => setSoundControlVisibility(playerState.isMuted);
@@ -33,10 +33,10 @@ function VideoContent({ data, handleChangePlayingVideo, currentPlayingVideoId })
     // pause this video if it's not current playing video, otherwise play it
     useEffect(() => {
         if (data.video_id !== currentPlayingVideoId) {
-            pauseVideo(false);
+            pauseVideo();
             return;
         }
-        playVideo(true);
+        playVideo();
 
         // eslint-disable-next-line
     }, [currentPlayingVideoId, data.video_id]);
@@ -54,7 +54,7 @@ function VideoContent({ data, handleChangePlayingVideo, currentPlayingVideoId })
                 <video
                     onMouseEnter={handleMouseEnterVideo}
                     onMouseLeave={handleMouseLeaveVideo}
-                    ref={videoElement}
+                    ref={videoRef}
                     autoPlay
                     loop
                     muted

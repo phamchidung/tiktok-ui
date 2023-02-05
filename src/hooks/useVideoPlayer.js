@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-function useVideoPlayer(videoElement) {
+function useVideoPlayer(videoRef) {
     const [playerState, setPlayerState] = useState({
         isPlaying: false,
         isMuted: true,
@@ -49,23 +49,24 @@ function useVideoPlayer(videoElement) {
     };
 
     useEffect(() => {
-        if (playerState.isPlaying) {
-            videoElement.current.play();
+        const video = videoRef.current;
+        if (playerState.isPlaying && video.paused) {
+            video.play();
             return;
         }
 
-        videoElement.current.pause();
-    }, [playerState.isPlaying, videoElement]);
+        video.pause();
+    }, [playerState.isPlaying, videoRef]);
 
     useEffect(() => {
-        videoElement.current.muted = playerState.isMuted;
-    }, [playerState.isMuted, videoElement]);
+        videoRef.current.muted = playerState.isMuted;
+    }, [playerState.isMuted, videoRef]);
 
     return { playerState, playVideo, pauseVideo, muteVideo, unmuteVideo, toggleMuteVideo, togglePlayVideo };
 }
 
 useVideoPlayer.propTypes = {
-    videoElement: PropTypes.node.isRequired,
+    videoRef: PropTypes.node.isRequired,
 };
 
 export default useVideoPlayer;
