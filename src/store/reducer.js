@@ -2,6 +2,7 @@ import { SET_RELOADING_HOME } from './constant';
 
 const initState = {
     isReloadingHome: false,
+    isLogin: true,
 };
 
 function reducer(state, action) {

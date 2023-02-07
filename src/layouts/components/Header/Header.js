@@ -17,7 +17,6 @@ import Button from '~/components/Button/Button';
 import styles from './Header.module.scss';
 import images from '~/assets/images';
 import Menu from '~/components/Popper/Menu';
-// import { InboxIcon, MessageIcon, UploadIcon } from '~/components/Icons';
 import { InboxIcon, MessageIcon, UploadIcon } from '~/components/Icons';
 import Image from '~/components/Image';
 import Search from '../Search';
@@ -60,8 +59,8 @@ const MENU_ITEMS = [
 ];
 
 function Header() {
-    const currentUser = true;
-    const [, dispatch] = useStore();
+    const [state, dispatch] = useStore();
+    const isLogin = { state };
 
     // Handle logic
     const handleMenuChange = (menuItem) => {
@@ -115,7 +114,7 @@ function Header() {
                 <Search />
 
                 <div className={cx('actions')}>
-                    {currentUser ? (
+                    {isLogin ? (
                         <>
                             <Tippy delay={[0, 50]} content="Upload video" placement="bottom">
                                 <button className={cx('action-btn')}>
@@ -141,8 +140,8 @@ function Header() {
                         </>
                     )}
 
-                    <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
-                        {currentUser ? (
+                    <Menu items={isLogin ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
+                        {isLogin ? (
                             <Image
                                 className={cx('user-avatar')}
                                 src="https://files.fullstack.edu.vn/f8-prod/user_avatars/1/623d4b2d95cec.png"
