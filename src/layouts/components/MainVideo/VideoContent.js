@@ -1,15 +1,16 @@
 import classNames from 'classnames/bind';
-import { CommentIcon, HeartIcon, MuteIcon, PauseIcon, PlayIcon, ShareIcon, SoundIcon } from '~/components/Icons';
+import { MuteIcon, PauseIcon, PlayIcon, SoundIcon } from '~/components/Icons';
 import styles from './MainVideo.module.scss';
 import PropTypes from 'prop-types';
 import { useRef, useEffect } from 'react';
 import { useVideoPlayer } from '~/hooks';
 import { InView } from 'react-intersection-observer';
-import ShareWrapper from '~/components/SharePreview';
 import useModal from '~/hooks/useModal';
 import Modal from 'react-modal';
 import useVideoControlVisibility from '~/hooks/useVideoControlVisibility';
 import VideoPlayer from './VideoPlayer';
+import VideoControl from './VideoControl';
+import VideoActions from './VideoActions';
 
 Modal.setAppElement('#root');
 const cx = classNames.bind(styles);
@@ -66,32 +67,14 @@ function VideoContent({ data, handleChangePlayingVideo, currentPlayingVideoId })
                         onClick={() => openModal()}
                     />
 
-                    <div className={cx('action-item')}>
-                        <div className={cx('action', 'like')}>
-                            <div className={cx('icon-circle')}>
-                                <HeartIcon className={cx('icon')} />
-                            </div>
-                            <strong className={cx('count', 'like-count')}>{data.like_count}</strong>
-                        </div>
-                        <div className={cx('action', 'comment')}>
-                            <div className={cx('icon-circle')}>
-                                <CommentIcon className={cx('icon')} />
-                            </div>
-                            <strong className={cx('count', 'comment-count')}>{data.comment_count}</strong>
-                        </div>
+                    <VideoActions
+                        commentCount={data.comment_count}
+                        likeCount={data.like_count}
+                        shareCount={data.share_count}
+                    />
 
-                        <ShareWrapper>
-                            <div className={cx('action', 'share')}>
-                                <div className={cx('icon-circle')}>
-                                    <ShareIcon className={cx('icon')} />
-                                </div>
-                                <strong className={cx('count', 'share-count')}>{data.share_count}</strong>
-                            </div>
-                        </ShareWrapper>
-                    </div>
-
-                    <div
-                        ref={playControlRef}
+                    <VideoControl
+                        controlRef={playControlRef}
                         onMouseEnter={handleMouseEnterVideo}
                         className={cx('button-control', 'play-control')}
                         onClick={() => {
@@ -100,16 +83,16 @@ function VideoContent({ data, handleChangePlayingVideo, currentPlayingVideoId })
                         }}
                     >
                         {playerState.isPlaying ? <PauseIcon /> : <PlayIcon />}
-                    </div>
+                    </VideoControl>
 
-                    <div
-                        ref={soundControlRef}
+                    <VideoControl
+                        controlRef={soundControlRef}
                         onMouseEnter={handleMouseEnterVideo}
                         className={cx('button-control', 'sound-control')}
                         onClick={toggleMuteVideo}
                     >
                         {playerState.isMuted ? <MuteIcon /> : <SoundIcon />}
-                    </div>
+                    </VideoControl>
                 </div>
             </InView>
 
