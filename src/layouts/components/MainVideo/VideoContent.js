@@ -9,6 +9,7 @@ import ShareWrapper from '~/components/SharePreview';
 import useModal from '~/hooks/useModal';
 import Modal from 'react-modal';
 import useVideoControlVisibility from '~/hooks/useVideoControlVisibility';
+import VideoPlayer from './VideoPlayer';
 
 Modal.setAppElement('#root');
 const cx = classNames.bind(styles);
@@ -57,18 +58,13 @@ function VideoContent({ data, handleChangePlayingVideo, currentPlayingVideoId })
                 }}
             >
                 <div className={cx('video-content')}>
-                    <video
-                        onClick={() => openModal()}
+                    <VideoPlayer
+                        videoRef={videoRef}
+                        videoUrl={data.video_url}
                         onMouseEnter={handleMouseEnterVideo}
                         onMouseLeave={handleMouseLeaveVideo}
-                        ref={videoRef}
-                        autoPlay
-                        loop
-                        muted
-                        className={cx('video')}
-                    >
-                        <source src={data.video_url} type="video/mp4" />
-                    </video>
+                        onClick={() => openModal()}
+                    />
 
                     <div className={cx('action-item')}>
                         <div className={cx('action', 'like')}>
