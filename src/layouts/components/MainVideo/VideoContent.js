@@ -3,20 +3,21 @@ import { MuteIcon, PauseIcon, PlayIcon, SoundIcon } from '~/components/Icons';
 import styles from './MainVideo.module.scss';
 import PropTypes from 'prop-types';
 import { useRef, useEffect } from 'react';
-import { useVideoPlayer } from '~/hooks';
+import { useStore, useVideoPlayer } from '~/hooks';
 import { InView } from 'react-intersection-observer';
-import useModal from '~/hooks/useModal';
 import Modal from 'react-modal';
 import useVideoControlVisibility from '~/hooks/useVideoControlVisibility';
 import VideoPlayer from './VideoPlayer';
 import VideoControl from './VideoControl';
 import VideoActions from './VideoActions';
+import VideoModal from '../VideoModal/VideoModal';
+import { setVideoModalData, setVideoModalOpen } from '~/store/actions';
 
 Modal.setAppElement('#root');
 const cx = classNames.bind(styles);
 
 function VideoContent({ data, handleChangePlayingVideo, currentPlayingVideoId }) {
-    const { isModalOpen, openModal, closeModal } = useModal();
+    const [, dispatch] = useStore();
 
     const soundControlRef = useRef();
     const { setControlVisibility: setSoundControlVisibility } = useVideoControlVisibility(soundControlRef, true);
@@ -35,6 +36,16 @@ function VideoContent({ data, handleChangePlayingVideo, currentPlayingVideoId })
     const handleMouseLeaveVideo = () => {
         setSoundControlVisibility(playerState.isMuted);
         setPlayControlVisibility(false);
+    };
+
+    const handleVideoPlayerOnclick = () => {
+        dispatch(setVideoModalOpen(true));
+        dispatch(
+            setVideoModalData({
+                videoImg: data.video_img,
+                videoId: data.video_id,
+            }),
+        );
     };
 
     // pause this video if it's not current playing video, otherwise play it
@@ -64,7 +75,7 @@ function VideoContent({ data, handleChangePlayingVideo, currentPlayingVideoId })
                         videoUrl={data.video_url}
                         onMouseEnter={handleMouseEnterVideo}
                         onMouseLeave={handleMouseLeaveVideo}
-                        onClick={() => openModal()}
+                        onClick={handleVideoPlayerOnclick}
                     />
 
                     <VideoActions
@@ -96,22 +107,7 @@ function VideoContent({ data, handleChangePlayingVideo, currentPlayingVideoId })
                 </div>
             </InView>
 
-            <Modal
-                isOpen={isModalOpen}
-                // onAfterOpen={afterOpenModal}
-                onRequestClose={closeModal}
-                className={cx('video-modal')}
-            >
-                <button onClick={closeModal}>close</button>
-                <div>I am a modal</div>
-                <form>
-                    <input />
-                    <button>tab navigation</button>
-                    <button>stays</button>
-                    <button>inside</button>
-                    <button>the modal</button>
-                </form>
-            </Modal>
+            <VideoModal />
         </div>
     );
 }

@@ -27,6 +27,8 @@ function Home() {
             like_count: '910.4K',
             comment_count: '6619',
             share_count: '19.1K',
+            video_img:
+                'https://p16-sign-va.tiktokcdn.com/tos-maliva-p-0068/oMyeH4DQICgHbunbF88SPWbl6mJilIApnCfjBe~tplv-f5insbecw7-1:720:720.jpeg?x-expires=1676120400&x-signature=O%2FaUdrGy2BZoyOez0bf%2B349Ha0w%3D',
         },
         {
             video_id: 2,
@@ -38,6 +40,8 @@ function Home() {
             like_count: '129.4K',
             comment_count: '619',
             share_count: '14.1K',
+            video_img:
+                'https://p16-sign-va.tiktokcdn.com/tos-maliva-p-0068/oMyeH4DQICgHbunbF88SPWbl6mJilIApnCfjBe~tplv-f5insbecw7-1:720:720.jpeg?x-expires=1676120400&x-signature=O%2FaUdrGy2BZoyOez0bf%2B349Ha0w%3D',
         },
         {
             video_id: 3,
@@ -49,6 +53,8 @@ function Home() {
             like_count: '529.4K',
             comment_count: '3619',
             share_count: '24.1K',
+            video_img:
+                'https://p16-sign-va.tiktokcdn.com/tos-useast2a-p-0037-aiso/o0enxIAHDFNBIB8gGQnAYMlbeffrEaE5zEGx90~tplv-f5insbecw7-1:720:720.jpeg?x-expires=1676120400&x-signature=wua%2BJhmzhEH6WpF0Iohv56pmSaY%3D',
         },
     ];
 

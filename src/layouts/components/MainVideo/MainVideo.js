@@ -24,6 +24,7 @@ function MainVideo({ data, handleChangePlayingVideo, currentPlayingVideoId }) {
                     like_count: data.like_count,
                     comment_count: data.comment_count,
                     share_count: data.share_count,
+                    video_img: data.video_img,
                 }}
                 handleChangePlayingVideo={handleChangePlayingVideo}
                 currentPlayingVideoId={currentPlayingVideoId}
