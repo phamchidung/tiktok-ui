@@ -10,7 +10,7 @@ import useVideoControlVisibility from '~/hooks/useVideoControlVisibility';
 import VideoPlayer from './VideoPlayer';
 import VideoControl from './VideoControl';
 import VideoActions from './VideoActions';
-import VideoModal from '../VideoModal/VideoModal';
+import { VideoModal } from '../VideoModal';
 import { setVideoModalData, setVideoModalOpen } from '~/store/actions';
 
 Modal.setAppElement('#root');
