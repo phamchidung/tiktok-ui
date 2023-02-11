@@ -7,7 +7,7 @@ import { useStore, useVideoPlayer } from '~/hooks';
 import { InView } from 'react-intersection-observer';
 import Modal from 'react-modal';
 import useVideoControlVisibility from '~/hooks/useVideoControlVisibility';
-import VideoPlayer from './VideoPlayer';
+import { VideoPlayer } from '../VideoPlayer';
 import VideoControl from './VideoControl';
 import VideoActions from './VideoActions';
 import { VideoModal } from '../VideoModal';
@@ -44,6 +44,7 @@ function VideoContent({ data, handleChangePlayingVideo, currentPlayingVideoId })
             setVideoModalData({
                 videoImg: data.video_img,
                 videoId: data.video_id,
+                videoUrl: data.video_url,
             }),
         );
     };
@@ -76,6 +77,7 @@ function VideoContent({ data, handleChangePlayingVideo, currentPlayingVideoId })
                         onMouseEnter={handleMouseEnterVideo}
                         onMouseLeave={handleMouseLeaveVideo}
                         onClick={handleVideoPlayerOnclick}
+                        className={cx('video')}
                     />
 
                     <VideoActions

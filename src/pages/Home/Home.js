@@ -36,7 +36,7 @@ function Home() {
             nickname: 'chidung',
             title_video: 'Ly hôn…',
             music_name: 'Chun Pop',
-            video_url: 'video/video-1.mp4',
+            video_url: 'video/video-2.mp4',
             like_count: '129.4K',
             comment_count: '619',
             share_count: '14.1K',

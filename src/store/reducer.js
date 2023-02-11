@@ -6,6 +6,7 @@ const initState = {
     videoModalData: {
         videoImg: undefined,
         videoId: undefined,
+        videoUrl: undefined,
         isVideoModalOpen: false,
     },
 };
@@ -28,8 +29,9 @@ function reducer(state, action) {
         case SET_VIDEO_MODAL_DATA:
             const newState = { ...state };
 
-            newState.videoModalData.videoImg = action.payload.videoImg;
-            newState.videoModalData.videoId = action.payload.videoId;
+            Object.keys(action.payload).forEach((key) => {
+                newState.videoModalData[key] = action.payload[key];
+            });
 
             return newState;
         default:
