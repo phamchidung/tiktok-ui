@@ -4,9 +4,19 @@ import PropTypes from 'prop-types';
 
 const cx = classNames.bind(styles);
 
-function VideoPlayer({ videoRef, videoUrl, onMouseEnter, onMouseLeave, onClick, className }) {
+function VideoPlayer({
+    videoRef,
+    videoUrl,
+    onMouseEnter,
+    onMouseLeave,
+    onTimeUpdate,
+    onClick,
+    controls = false,
+    className,
+}) {
     return (
         <video
+            onTimeUpdate={onTimeUpdate}
             onClick={onClick}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
@@ -14,6 +24,7 @@ function VideoPlayer({ videoRef, videoUrl, onMouseEnter, onMouseLeave, onClick, 
             autoPlay
             loop
             muted
+            controls={controls}
             className={cx('video', className)}
         >
             <source src={videoUrl} type="video/mp4" />
@@ -26,8 +37,10 @@ VideoPlayer.propTypes = {
     videoUrl: PropTypes.string,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func,
+    onTimeUpdate: PropTypes.func,
     onClick: PropTypes.func,
     className: PropTypes.string,
+    controls: PropTypes.bool,
 };
 
 export default VideoPlayer;

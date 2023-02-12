@@ -47,6 +47,7 @@ function VideoContent({ data, handleChangePlayingVideo, currentPlayingVideoId })
                 videoUrl: data.video_url,
             }),
         );
+        pauseVideo();
     };
 
     // pause this video if it's not current playing video, otherwise play it

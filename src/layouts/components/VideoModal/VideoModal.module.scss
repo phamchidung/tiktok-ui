@@ -46,6 +46,9 @@
         position: relative;
         z-index: -2;
 
+        display: flex;
+        justify-content: center;
+
         .video-bg {
             position: absolute;
             width: 10%;
@@ -60,8 +63,71 @@
         }
 
         .video {
-            width: 100%;
             height: 100%;
+        }
+
+        .video-control-container {
+            position: absolute;
+            bottom: 28px;
+
+            width: calc(100% - 160px);
+            height: 24px;
+            padding-inline: 16px;
+            transition: opacity 0.3s ease 0s;
+            cursor: initial;
+            display: flex;
+            -webkit-box-align: center;
+            align-items: center;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 56.25vh;
+            display: none;
+
+            &.active {
+                display: flex;
+            }
+
+            .seek-bar-container {
+                width: 100%;
+                height: 24px;
+                flex: 1 1 auto;
+                position: relative;
+
+                .seek-bar-background {
+                    height: 4px;
+                    width: 100%;
+                    background-color: rgba(255, 255, 255, 0.34);
+                    position: absolute;
+                    left: 0px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    cursor: pointer;
+
+                    .seek-bar-percent {
+                        height: 4px;
+                        width: 100%;
+                        background-color: $white;
+                        position: absolute;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        cursor: pointer;
+                        transform-origin: left center;
+
+                        transform: scaleX(0.231148) translateY(-50%);
+                    }
+                }
+            }
+
+            .seek-bar-time {
+                flex: 0 0 88px;
+                max-width: 88px;
+                margin-inline-start: 8px;
+                font-size: 1.4rem;
+                line-height: 24px;
+                color: $white;
+                text-align: end;
+                white-space: nowrap;
+            }
         }
     }
 

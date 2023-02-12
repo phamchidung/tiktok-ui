@@ -5,7 +5,15 @@ function useVideoPlayer(videoRef) {
     const [playerState, setPlayerState] = useState({
         isPlaying: false,
         isMuted: true,
+        progress: 0,
     });
+
+    const setProgress = (value) => {
+        setPlayerState({
+            ...playerState,
+            progress: value,
+        });
+    };
 
     const playVideo = () => {
         setPlayerState({
@@ -48,21 +56,64 @@ function useVideoPlayer(videoRef) {
         });
     };
 
-    useEffect(() => {
-        const video = videoRef.current;
-        if (playerState.isPlaying && video.paused) {
-            video.play();
+    const correctTimePrefix = (time) => (time < 10 ? '0' + time : time);
+
+    const getStringTime = (time) => {
+        const minutes = Math.round(time / 60);
+        const seconds = time - minutes * 60;
+
+        return `${correctTimePrefix(minutes)}:${correctTimePrefix(seconds)}`;
+    };
+
+    const getVideoDurationString = () => {
+        if (!videoRef.current) {
             return;
         }
 
-        video.pause();
+        const time = Math.round(videoRef.current.duration);
+        return getStringTime(time);
+    };
+
+    const getVideoCurrentTimeString = () => {
+        if (!videoRef.current) {
+            return;
+        }
+
+        const time = Math.round(videoRef.current.currentTime);
+        return getStringTime(time);
+    };
+
+    useEffect(() => {
+        const video = videoRef.current;
+
+        if (video) {
+            if (playerState.isPlaying && video.paused) {
+                video.play();
+                return;
+            }
+
+            video.pause();
+        }
     }, [playerState.isPlaying, videoRef]);
 
     useEffect(() => {
-        videoRef.current.muted = playerState.isMuted;
+        if (videoRef.current) {
+            videoRef.current.muted = playerState.isMuted;
+        }
     }, [playerState.isMuted, videoRef]);
 
-    return { playerState, playVideo, pauseVideo, muteVideo, unmuteVideo, toggleMuteVideo, togglePlayVideo };
+    return {
+        playerState,
+        playVideo,
+        pauseVideo,
+        muteVideo,
+        unmuteVideo,
+        toggleMuteVideo,
+        togglePlayVideo,
+        setProgress,
+        getVideoDurationString,
+        getVideoCurrentTimeString,
+    };
 }
 
 useVideoPlayer.propTypes = {
