@@ -6,6 +6,7 @@ import { setVideoModalOpen } from '~/store/actions';
 import { CloseIcon } from '~/components/Icons';
 import { useRef, useState } from 'react';
 import { VideoPlayer } from '../VideoPlayer';
+import { useOpacity } from '~/hooks';
 
 const cx = classNames.bind(styles);
 Modal.setAppElement('#root');
@@ -14,7 +15,10 @@ function VideoModal() {
     const [state, dispatch] = useStore();
     const { videoModalData } = state;
 
-    const [isVideoControlVisibility, setVideoControlVisibility] = useState(false);
+    const controlContainerRef = useRef();
+    const { setControlVisibility: setControlContainerVisibility } = useOpacity(controlContainerRef, false);
+
+    const [isControlContainerReady, setControlContainerReady] = useState(false);
 
     const videoRef = useRef();
     const { playerState, setProgress, getVideoDurationString, getVideoCurrentTimeString } = useVideoPlayer(videoRef);
@@ -30,12 +34,22 @@ function VideoModal() {
         dispatch(setVideoModalOpen(false));
     };
 
+    const handleMouseEnter = () => {
+        setControlContainerVisibility(true);
+    };
+
+    const handleMouseLeave = () => {
+        setControlContainerVisibility(false);
+    };
+
     const handleOnAfterOpen = () => {
-        setTimeout(() => setVideoControlVisibility(true), 300);
+        setTimeout(() => {
+            setControlContainerReady(true);
+        }, 800);
     };
 
     const handleOnAfterClose = () => {
-        setVideoControlVisibility(false);
+        setControlContainerReady(false);
     };
 
     return (
@@ -49,7 +63,7 @@ function VideoModal() {
             <div onClick={handleCloseModal} className={cx('btn-close')}>
                 <CloseIcon />
             </div>
-            <div className={cx('video-content')}>
+            <div className={cx('video-content')} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                 <div style={{ backgroundImage: `url('${videoModalData.videoImg}` }} className={cx('video-bg')}></div>
                 <VideoPlayer
                     className={cx('video')}
@@ -59,8 +73,9 @@ function VideoModal() {
                 />
 
                 <div
+                    ref={controlContainerRef}
                     className={cx('video-control-container', {
-                        active: isVideoControlVisibility,
+                        active: isControlContainerReady,
                     })}
                 >
                     <div className={cx('seek-bar-container')}>

@@ -6,7 +6,7 @@ import { useRef, useEffect } from 'react';
 import { useStore, useVideoPlayer } from '~/hooks';
 import { InView } from 'react-intersection-observer';
 import Modal from 'react-modal';
-import useVideoControlVisibility from '~/hooks/useVideoControlVisibility';
+import { useOpacity } from '~/hooks';
 import { VideoPlayer } from '../VideoPlayer';
 import VideoControl from './VideoControl';
 import VideoActions from './VideoActions';
@@ -20,10 +20,10 @@ function VideoContent({ data, handleChangePlayingVideo, currentPlayingVideoId })
     const [, dispatch] = useStore();
 
     const soundControlRef = useRef();
-    const { setControlVisibility: setSoundControlVisibility } = useVideoControlVisibility(soundControlRef, true);
+    const { setControlVisibility: setSoundControlVisibility } = useOpacity(soundControlRef, true);
 
     const playControlRef = useRef();
-    const { setControlVisibility: setPlayControlVisibility } = useVideoControlVisibility(playControlRef, false);
+    const { setControlVisibility: setPlayControlVisibility } = useOpacity(playControlRef, false);
 
     const videoRef = useRef();
     const { playerState, playVideo, pauseVideo, toggleMuteVideo, togglePlayVideo } = useVideoPlayer(videoRef);

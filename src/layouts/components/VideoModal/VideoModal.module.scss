@@ -73,14 +73,14 @@
             width: calc(100% - 160px);
             height: 24px;
             padding-inline: 16px;
-            transition: opacity 0.3s ease 0s;
             cursor: initial;
-            display: flex;
+            // display: flex;
             -webkit-box-align: center;
             align-items: center;
             left: 50%;
             transform: translateX(-50%);
             max-width: 56.25vh;
+            opacity: 0;
             display: none;
 
             &.active {

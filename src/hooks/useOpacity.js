@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-function useVideoControlVisibility(controlRef, initialState) {
+function useOpacity(controlRef, initialState) {
     const [isControlVisibility, setControlVisibility] = useState(initialState);
 
     // control visibility status of button
@@ -18,4 +18,4 @@ function useVideoControlVisibility(controlRef, initialState) {
     return { setControlVisibility };
 }
 
-export default useVideoControlVisibility;
+export default useOpacity;
