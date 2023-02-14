@@ -36,6 +36,7 @@
     }
 
     .video-content {
+        cursor: pointer;
         flex: 1 0 600px;
         max-width: 100%;
         background: rgb(0, 0, 0);
@@ -128,6 +129,15 @@
                 text-align: end;
                 white-space: nowrap;
             }
+        }
+
+        .play-btn {
+            position: absolute;
+            font-size: 6rem;
+            color: $white;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
     }
 

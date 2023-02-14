@@ -8,6 +8,8 @@ import { useRef } from 'react';
 import { VideoPlayer } from '../VideoPlayer';
 import { useOpacity } from '~/hooks';
 import useDisplay from '~/hooks/useDisplay';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlay } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 Modal.setAppElement('#root');
@@ -21,7 +23,8 @@ function VideoModal() {
     const { setElementDisplay: setControlContainerDisplay } = useDisplay(controlContainerRef, false, 'flex');
 
     const videoRef = useRef();
-    const { playerState, setProgress, getVideoDurationString, getVideoCurrentTimeString } = useVideoPlayer(videoRef);
+    const { playerState, setProgress, getVideoDurationString, getVideoCurrentTimeString, togglePlayVideo } =
+        useVideoPlayer(videoRef);
 
     const handleTimeUpdate = (e) => {
         if (isNaN(e.target.duration))
@@ -52,6 +55,10 @@ function VideoModal() {
         setControlContainerDisplay(false);
     };
 
+    const handleOnClick = () => {
+        togglePlayVideo();
+    };
+
     return (
         <Modal
             isOpen={videoModalData.isVideoModalOpen}
@@ -63,7 +70,12 @@ function VideoModal() {
             <div onClick={handleCloseModal} className={cx('btn-close')}>
                 <CloseIcon />
             </div>
-            <div className={cx('video-content')} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+            <div
+                className={cx('video-content')}
+                onClick={handleOnClick}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+            >
                 <div style={{ backgroundImage: `url('${videoModalData.videoImg}` }} className={cx('video-bg')}></div>
                 <VideoPlayer
                     className={cx('video')}
@@ -88,6 +100,8 @@ function VideoModal() {
                         {getVideoCurrentTimeString()}/{getVideoDurationString()}
                     </div>
                 </div>
+
+                {playerState.isPlaying ? null : <FontAwesomeIcon className={cx('play-btn')} icon={faPlay} />}
             </div>
             <div className={cx('video-info')}></div>
         </Modal>
