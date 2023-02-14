@@ -4,9 +4,10 @@ import styles from './VideoModal.module.scss';
 import { useStore, useVideoPlayer } from '~/hooks';
 import { setVideoModalOpen } from '~/store/actions';
 import { CloseIcon } from '~/components/Icons';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { VideoPlayer } from '../VideoPlayer';
 import { useOpacity } from '~/hooks';
+import useDisplay from '~/hooks/useDisplay';
 
 const cx = classNames.bind(styles);
 Modal.setAppElement('#root');
@@ -16,9 +17,8 @@ function VideoModal() {
     const { videoModalData } = state;
 
     const controlContainerRef = useRef();
-    const { setControlVisibility: setControlContainerVisibility } = useOpacity(controlContainerRef, false);
-
-    const [isControlContainerReady, setControlContainerReady] = useState(false);
+    const { setElementVisibility: setControlContainerVisibility } = useOpacity(controlContainerRef, false);
+    const { setElementDisplay: setControlContainerDisplay } = useDisplay(controlContainerRef, false, 'flex');
 
     const videoRef = useRef();
     const { playerState, setProgress, getVideoDurationString, getVideoCurrentTimeString } = useVideoPlayer(videoRef);
@@ -44,12 +44,12 @@ function VideoModal() {
 
     const handleOnAfterOpen = () => {
         setTimeout(() => {
-            setControlContainerReady(true);
+            setControlContainerDisplay(true);
         }, 800);
     };
 
     const handleOnAfterClose = () => {
-        setControlContainerReady(false);
+        setControlContainerDisplay(false);
     };
 
     return (
@@ -72,12 +72,7 @@ function VideoModal() {
                     videoUrl={videoModalData.videoUrl}
                 />
 
-                <div
-                    ref={controlContainerRef}
-                    className={cx('video-control-container', {
-                        active: isControlContainerReady,
-                    })}
-                >
+                <div ref={controlContainerRef} className={cx('video-control-container')}>
                     <div className={cx('seek-bar-container')}>
                         <div className={cx('seek-bar-background')}>
                             <div

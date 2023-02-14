@@ -1,21 +1,21 @@
 import { useState, useEffect } from 'react';
 
-function useOpacity(controlRef, initialState) {
-    const [isControlVisibility, setControlVisibility] = useState(initialState);
+function useOpacity(elementRef, initialState) {
+    const [isElementVisibility, setElementVisibility] = useState(initialState);
 
     // control visibility status of button
     useEffect(() => {
-        if (controlRef.current) {
-            if (isControlVisibility) {
-                controlRef.current.style.opacity = 1;
+        if (elementRef.current) {
+            if (isElementVisibility) {
+                elementRef.current.style.opacity = 1;
                 return;
             }
-            controlRef.current.style.opacity = 0;
+            elementRef.current.style.opacity = 0;
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isControlVisibility]);
+    }, [isElementVisibility]);
 
-    return { setControlVisibility };
+    return { setElementVisibility };
 }
 
 export default useOpacity;

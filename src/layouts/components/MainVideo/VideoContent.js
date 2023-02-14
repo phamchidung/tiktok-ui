@@ -20,10 +20,10 @@ function VideoContent({ data, handleChangePlayingVideo, currentPlayingVideoId })
     const [, dispatch] = useStore();
 
     const soundControlRef = useRef();
-    const { setControlVisibility: setSoundControlVisibility } = useOpacity(soundControlRef, true);
+    const { setElementVisibility: setSoundControlVisibility } = useOpacity(soundControlRef, true);
 
     const playControlRef = useRef();
-    const { setControlVisibility: setPlayControlVisibility } = useOpacity(playControlRef, false);
+    const { setElementVisibility: setPlayControlVisibility } = useOpacity(playControlRef, false);
 
     const videoRef = useRef();
     const { playerState, playVideo, pauseVideo, toggleMuteVideo, togglePlayVideo } = useVideoPlayer(videoRef);
