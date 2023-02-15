@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-function useVideoPlayer(videoRef) {
+function useVideoPlayer(videoRef, isPlaying = false) {
     const [playerState, setPlayerState] = useState({
-        isPlaying: false,
+        isPlaying: isPlaying,
         isMuted: true,
         progress: 0,
     });
@@ -65,6 +65,14 @@ function useVideoPlayer(videoRef) {
         return `${correctTimePrefix(minutes)}:${correctTimePrefix(seconds)}`;
     };
 
+    const getVideoDuration = () => {
+        if (!videoRef.current) {
+            return 0;
+        }
+
+        return Math.round(videoRef.current.duration);
+    };
+
     const getVideoDurationString = () => {
         if (!videoRef.current) {
             return;
@@ -113,6 +121,7 @@ function useVideoPlayer(videoRef) {
         setProgress,
         getVideoDurationString,
         getVideoCurrentTimeString,
+        getVideoDuration,
     };
 }
 

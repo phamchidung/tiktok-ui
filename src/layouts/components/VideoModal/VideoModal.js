@@ -23,8 +23,16 @@ function VideoModal() {
     const { setElementDisplay: setControlContainerDisplay } = useDisplay(controlContainerRef, false, 'flex');
 
     const videoRef = useRef();
-    const { playerState, setProgress, getVideoDurationString, getVideoCurrentTimeString, togglePlayVideo } =
-        useVideoPlayer(videoRef);
+    const {
+        playerState,
+        setProgress,
+        getVideoDurationString,
+        getVideoCurrentTimeString,
+        togglePlayVideo,
+        getVideoDuration,
+    } = useVideoPlayer(videoRef, true);
+
+    const seekBarBackgroundRef = useRef();
 
     const handleTimeUpdate = (e) => {
         if (isNaN(e.target.duration))
@@ -55,8 +63,18 @@ function VideoModal() {
         setControlContainerDisplay(false);
     };
 
-    const handleOnClick = () => {
+    const handleVideoContentClicked = () => {
         togglePlayVideo();
+    };
+
+    const handleSeekBarBackgroundClicked = (e) => {
+        e.stopPropagation();
+        const seekBarBackgroundPositionX = Math.floor(seekBarBackgroundRef.current.getBoundingClientRect().left);
+        const clickedPositionX = e.clientX;
+        const seekBarBackgroundWidth = seekBarBackgroundRef.current.offsetWidth;
+        const videoTimePercent = (clickedPositionX - seekBarBackgroundPositionX) / seekBarBackgroundWidth;
+
+        videoRef.current.currentTime = videoTimePercent * getVideoDuration();
     };
 
     return (
@@ -72,7 +90,7 @@ function VideoModal() {
             </div>
             <div
                 className={cx('video-content')}
-                onClick={handleOnClick}
+                onClick={handleVideoContentClicked}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
             >
@@ -86,7 +104,11 @@ function VideoModal() {
 
                 <div ref={controlContainerRef} className={cx('video-control-container')}>
                     <div className={cx('seek-bar-container')}>
-                        <div className={cx('seek-bar-background')}>
+                        <div
+                            ref={seekBarBackgroundRef}
+                            className={cx('seek-bar-background')}
+                            onClick={handleSeekBarBackgroundClicked}
+                        >
                             <div
                                 className={cx('seek-bar-percent')}
                                 style={{
