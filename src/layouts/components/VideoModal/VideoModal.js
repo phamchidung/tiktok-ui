@@ -3,7 +3,7 @@ import classNames from 'classnames/bind';
 import styles from './VideoModal.module.scss';
 import { useStore, useVideoPlayer } from '~/hooks';
 import { setVideoModalOpen } from '~/store/actions';
-import { CloseIcon } from '~/components/Icons';
+import { ArrowDownIcon, CloseIcon, FlagIcon, TiktokIcon } from '~/components/Icons';
 import { useRef } from 'react';
 import { VideoPlayer } from '../VideoPlayer';
 import { useOpacity } from '~/hooks';
@@ -89,16 +89,29 @@ function VideoModal() {
             onAfterClose={handleOnAfterClose}
             className={cx('video-modal')}
         >
-            <div onClick={handleCloseModal} className={cx('btn-close')}>
-                <CloseIcon />
-            </div>
             <div
                 className={cx('video-content')}
                 onClick={handleVideoContentClicked}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
             >
+                <div onClick={handleCloseModal} className={cx('btn-close')}>
+                    <CloseIcon />
+                </div>
+
+                <TiktokIcon className={cx('tiktok-icon')} />
+
+                <div className={cx('report-text')}>
+                    <FlagIcon />
+                    Báo cáo
+                </div>
+
+                <div className={cx('video-switch')}>
+                    <ArrowDownIcon className={cx('arrow-down')} />
+                </div>
+
                 <div style={{ backgroundImage: `url('${videoModalData.videoImg}` }} className={cx('video-bg')}></div>
+
                 <VideoPlayer
                     className={cx('video')}
                     videoRef={videoRef}

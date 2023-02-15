@@ -7,34 +7,6 @@
     z-index: 11;
     display: flex;
 
-    .btn-close {
-        position: absolute;
-        display: flex;
-        -webkit-box-pack: center;
-        justify-content: center;
-        -webkit-box-align: center;
-        align-items: center;
-        width: 40px;
-        height: 40px;
-        background: rgba(84, 84, 84, 0.5);
-        border-radius: 50%;
-        cursor: pointer;
-        border: none;
-        outline: none;
-        top: 20px;
-        left: 20px;
-        transition: opacity 0.3s ease 0s;
-        color: $white;
-
-        &:hover {
-            background-color: rgba(37, 37, 37, 0.6);
-        }
-
-        &:active {
-            opacity: 0.5;
-        }
-    }
-
     .video-content {
         cursor: pointer;
         flex: 1 0 600px;
@@ -49,6 +21,103 @@
 
         display: flex;
         justify-content: center;
+
+        .btn-close {
+            position: absolute;
+            display: flex;
+            -webkit-box-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(84, 84, 84, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            top: 20px;
+            left: 20px;
+            transition: opacity 0.3s ease 0s;
+            color: $white;
+
+            &:hover {
+                background-color: rgba(37, 37, 37, 0.6);
+            }
+
+            &:active {
+                opacity: 0.5;
+            }
+        }
+
+        .tiktok-icon {
+            position: absolute;
+            z-index: 1;
+            top: 20px;
+            border-radius: 100px;
+            left: 84px;
+        }
+
+        .report-text {
+            gap: 5px;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 20px;
+            padding: 10px 16px;
+            display: flex;
+            -webkit-box-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            align-items: center;
+            border-radius: 100px;
+            position: absolute;
+            top: 20px;
+            cursor: pointer;
+            color: rgb(255, 255, 255);
+            background-color: rgba(84, 84, 84, 0.5);
+            right: 20px;
+
+            &:hover {
+                background-color: rgba(37, 37, 37, 0.6);
+            }
+
+            &:active {
+                opacity: 0.5;
+            }
+        }
+
+        .video-switch {
+            position: absolute;
+            z-index: 1;
+            display: flex;
+            -webkit-box-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(84, 84, 84, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            transform: rotate(90deg);
+            top: calc(50% + 8px);
+            margin-top: -24px;
+            right: 20px;
+
+            &:hover {
+                background-color: rgba(37, 37, 37, 0.6);
+            }
+
+            &:active {
+                opacity: 0.5;
+            }
+
+            .arrow-down {
+                color: $white;
+            }
+        }
 
         .video-bg {
             position: absolute;
