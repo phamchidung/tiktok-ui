@@ -8,7 +8,7 @@ import { InView } from 'react-intersection-observer';
 import Modal from 'react-modal';
 import { useOpacity } from '~/hooks';
 import { VideoPlayer } from '../VideoPlayer';
-import VideoControl from './VideoControl';
+import VideoControl from '../VideoControl';
 import VideoActions from './VideoActions';
 import { VideoModal } from '../VideoModal';
 import { setVideoModalData, setVideoModalOpen } from '~/store/actions';
@@ -45,6 +45,7 @@ function VideoContent({ data, handleChangePlayingVideo, currentPlayingVideoId })
                 videoImg: data.video_img,
                 videoId: data.video_id,
                 videoUrl: data.video_url,
+                isFirstVideo: data.is_first_video,
             }),
         );
         pauseVideo();

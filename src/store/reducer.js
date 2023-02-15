@@ -8,6 +8,7 @@ const initState = {
         videoId: undefined,
         videoUrl: undefined,
         isVideoModalOpen: false,
+        isFirstVideo: false,
     },
 };
 

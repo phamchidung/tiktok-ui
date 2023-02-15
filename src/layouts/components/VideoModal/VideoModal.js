@@ -3,18 +3,21 @@ import classNames from 'classnames/bind';
 import styles from './VideoModal.module.scss';
 import { useStore, useVideoPlayer } from '~/hooks';
 import { setVideoModalOpen } from '~/store/actions';
-import { ArrowDownIcon, CloseIcon, FlagIcon, TiktokIcon } from '~/components/Icons';
+import { ArrowDownIcon, CloseIcon, FlagIcon, MuteIcon, SoundIcon, TiktokIcon } from '~/components/Icons';
 import { useRef } from 'react';
 import { VideoPlayer } from '../VideoPlayer';
 import { useOpacity } from '~/hooks';
 import useDisplay from '~/hooks/useDisplay';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
+import VideoControl from '../VideoControl';
 
 const cx = classNames.bind(styles);
 Modal.setAppElement('#root');
 
 function VideoModal() {
+    const soundControlRef = useRef();
+
     const [state, dispatch] = useStore();
     const { videoModalData } = state;
 
@@ -32,6 +35,7 @@ function VideoModal() {
         getVideoDuration,
         pauseVideo,
         playVideo,
+        toggleMuteVideo,
     } = useVideoPlayer(videoRef, true);
 
     const seekBarBackgroundRef = useRef();
@@ -81,6 +85,11 @@ function VideoModal() {
         videoRef.current.currentTime = videoTimePercent * getVideoDuration();
     };
 
+    const handleSoundControlClicked = (e) => {
+        e.stopPropagation();
+        toggleMuteVideo();
+    };
+
     return (
         <Modal
             isOpen={videoModalData.isVideoModalOpen}
@@ -106,9 +115,23 @@ function VideoModal() {
                     Báo cáo
                 </div>
 
-                <div className={cx('video-switch')}>
-                    <ArrowDownIcon className={cx('arrow-down')} />
+                {videoModalData.isFirstVideo ? null : (
+                    <div className={cx('video-switch', 'video-switch-up')}>
+                        <ArrowDownIcon />
+                    </div>
+                )}
+
+                <div className={cx('video-switch', 'video-switch-down')}>
+                    <ArrowDownIcon />
                 </div>
+
+                <VideoControl
+                    controlRef={soundControlRef}
+                    className={cx('sound-control')}
+                    onClick={handleSoundControlClicked}
+                >
+                    {playerState.isMuted ? <MuteIcon /> : <SoundIcon />}
+                </VideoControl>
 
                 <div style={{ backgroundImage: `url('${videoModalData.videoImg}` }} className={cx('video-bg')}></div>
 

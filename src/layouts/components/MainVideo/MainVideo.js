@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 const cx = classNames.bind(styles);
 
-function MainVideo({ data, handleChangePlayingVideo, currentPlayingVideoId }) {
+function MainVideo({ data, isFirstVideo, handleChangePlayingVideo, currentPlayingVideoId }) {
     return (
         <div className={cx('wrapper')}>
             <VideoInfo
@@ -19,6 +19,7 @@ function MainVideo({ data, handleChangePlayingVideo, currentPlayingVideoId }) {
             />
             <VideoContent
                 data={{
+                    is_first_video: isFirstVideo,
                     video_id: data.video_id,
                     video_url: data.video_url,
                     like_count: data.like_count,
@@ -37,6 +38,7 @@ MainVideo.propTypes = {
     data: PropTypes.object.isRequired,
     handleChangePlayingVideo: PropTypes.func.isRequired,
     currentPlayingVideoId: PropTypes.number.isRequired,
+    isFirstVideo: PropTypes.bool.isRequired,
 };
 
 export default MainVideo;

@@ -63,8 +63,9 @@ function Home() {
             {isReloadingHome ? (
                 <Skeleton />
             ) : (
-                videosData.map((data) => (
+                videosData.map((data, index) => (
                     <MainVideo
+                        isFirstVideo={index === 0}
                         key={data.video_id}
                         data={{ ...data }}
                         handleChangePlayingVideo={handleChangePlayingVideo}

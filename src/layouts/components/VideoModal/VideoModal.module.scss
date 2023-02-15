@@ -101,10 +101,19 @@
             cursor: pointer;
             border: none;
             outline: none;
-            transform: rotate(90deg);
-            top: calc(50% + 8px);
             margin-top: -24px;
             right: 20px;
+            color: $white;
+
+            &.video-switch-down {
+                top: calc(50% + 8px);
+                transform: rotate(90deg);
+            }
+
+            &.video-switch-up {
+                top: calc(50% - 48px);
+                transform: rotate(-90deg);
+            }
 
             &:hover {
                 background-color: rgba(37, 37, 37, 0.6);
@@ -113,10 +122,23 @@
             &:active {
                 opacity: 0.5;
             }
+        }
 
-            .arrow-down {
-                color: $white;
-            }
+        .sound-control {
+            border: none;
+            background: none rgba(84, 84, 84, 0.5);
+            outline: none;
+            padding: 8px;
+            display: flex;
+            transition: opacity 0.3s ease 0s;
+            cursor: pointer;
+            line-height: 0;
+            border-radius: 100px;
+            position: absolute;
+            right: 20px;
+            bottom: 0;
+            color: white;
+            bottom: 20px;
         }
 
         .video-bg {
