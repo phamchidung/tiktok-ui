@@ -30,6 +30,8 @@ function VideoModal() {
         getVideoCurrentTimeString,
         togglePlayVideo,
         getVideoDuration,
+        pauseVideo,
+        playVideo,
     } = useVideoPlayer(videoRef, true);
 
     const seekBarBackgroundRef = useRef();
@@ -57,10 +59,12 @@ function VideoModal() {
         setTimeout(() => {
             setControlContainerDisplay(true);
         }, 800);
+        playVideo();
     };
 
     const handleOnAfterClose = () => {
         setControlContainerDisplay(false);
+        pauseVideo();
     };
 
     const handleVideoContentClicked = () => {
